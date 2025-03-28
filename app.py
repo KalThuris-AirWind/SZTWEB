@@ -18,7 +18,7 @@ def index():
     return render_template('index.html', questions=questions)
 
 # 试题上传页面
-@app.route('/add_question', methods=['GET', 'POST'])
+@app.route('/add', methods=['GET', 'POST'])
 def add_question():
     if request.method == 'POST':
         question_type = request.form['question_type']

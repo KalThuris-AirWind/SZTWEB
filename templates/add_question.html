@@ -2,57 +2,73 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>添加试题 Add Question</title>
+    <title>添加试题</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="container mt-4">
-    <h1>➕ 添加试题 Add Question</h1>
+<body class="container py-5">
+    <h2 class="mb-4">➕ 添加试题</h2>
 
-    <form method="post">
-        <div class="mb-3">
-            <label>题型 Question Type</label>
-            <input type="text" name="question_type" class="form-control">
-        </div>
+    <form action="/add" method="post" autocomplete="off">
+        <div class="row g-3">
+            <!-- 题型 -->
+            <div class="col-md-6">
+                <label for="question_type" class="form-label">题型</label>
+                <select id="question_type" name="question_type" class="form-select" required>
+                    <option value="">请选择题型</option>
+                    <option value="选择题" selected>选择题</option>
+                    <option value="填空题">填空题</option>
+                    <option value="问答题">问答题</option>
+                </select>
+            </div>
 
-        <div class="mb-3">
-            <label>材料 Material</label>
-            <textarea name="material" class="form-control"></textarea>
-        </div>
+            <!-- 正确答案 -->
+            <div class="col-md-6">
+                <label for="correct_answer" class="form-label">正确答案</label>
+                <input type="text" id="correct_answer" name="correct_answer" class="form-control" autocomplete="off">
+            </div>
 
-        <div class="mb-3">
-            <label>设问 Question</label>
-            <textarea name="question_text" class="form-control"></textarea>
-        </div>
+            <!-- 材料 -->
+            <div class="col-12">
+                <label for="material" class="form-label">材料</label>
+                <textarea id="material" name="material" class="form-control" rows="2" autocomplete="off"></textarea>
+            </div>
 
-        <div class="mb-3">
-            <label>选项 A</label>
-            <input type="text" name="option_a" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>选项 B</label>
-            <input type="text" name="option_b" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>选项 C</label>
-            <input type="text" name="option_c" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label>选项 D</label>
-            <input type="text" name="option_d" class="form-control">
-        </div>
+            <!-- 设问 -->
+            <div class="col-12">
+                <label for="question_text" class="form-label">设问</label>
+                <textarea id="question_text" name="question_text" class="form-control" rows="2" required autocomplete="off"></textarea>
+            </div>
 
-        <div class="mb-3">
-            <label>正确答案 Correct Answer</label>
-            <input type="text" name="correct_answer" class="form-control">
-        </div>
+            <!-- 选项（仅选择题） -->
+            <div class="col-md-6 col-lg-6">
+                <label for="option_a" class="form-label">选项 A</label>
+                <input type="text" id="option_a" name="option_a" class="form-control" autocomplete="off">
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label for="option_b" class="form-label">选项 B</label>
+                <input type="text" id="option_b" name="option_b" class="form-control" autocomplete="off">
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label for="option_c" class="form-label">选项 C</label>
+                <input type="text" id="option_c" name="option_c" class="form-control" autocomplete="off">
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <label for="option_d" class="form-label">选项 D</label>
+                <input type="text" id="option_d" name="option_d" class="form-control" autocomplete="off">
+            </div>
 
-        <div class="mb-3">
-            <label>解析 Analysis</label>
-            <textarea name="analysis" class="form-control"></textarea>
-        </div>
+            <!-- 解析 -->
+            <div class="col-12">
+                <label for="analysis" class="form-label">解析</label>
+                <textarea id="analysis" name="analysis" class="form-control" rows="2" autocomplete="off"></textarea>
+            </div>
 
-        <button type="submit" class="btn btn-primary">提交 Submit</button>
-        <a href="/" class="btn btn-secondary">返回 Back</a>
+            <!-- 按钮 -->
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-success">✅ 提交试题</button>
+                <a href="/" class="btn btn-secondary">取消</a>
+            </div>
+        </div>
     </form>
 </body>
 </html>
