@@ -10,12 +10,19 @@ def get_db_connection():
     return conn
 
 # 首页
-@app.route('/')
+@app.route("/")
 def index():
-    conn = get_db_connection()  # ✅ This line is required!
-    questions = conn.execute('SELECT * FROM questions').fetchall()
+    page = int(request.args.get('page', 1))  # 默认第1页
+    per_page = 5
+    offset = (page - 1) * per_page
+
+    conn = get_db_connection()
+    questions = conn.execute('SELECT * FROM questions LIMIT ? OFFSET ?', (per_page, offset)).fetchall()
+    
+    total = conn.execute('SELECT COUNT(*) FROM questions').fetchone()[0]
+    total_pages = (total + per_page - 1) // per_page  # 向上取整
     conn.close()
-    return render_template('index.html', questions=questions)
+    return render_template("index.html", questions=questions, page=page, total_pages=total_pages)
 
 # 试题上传页面
 @app.route('/add', methods=['GET', 'POST'])

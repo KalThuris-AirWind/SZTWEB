@@ -5,37 +5,33 @@
     <title>思政通 - 题库系统</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-size: 0.95rem;
-        }
+        body { font-size: 0.95rem; }
         nav.navbar {
             border-radius: 0.75rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .option {
-            font-size: 0.9rem;
-            margin-bottom: 0.25rem;
-        }
-        .btn-sm {
-            padding: 0.2rem 0.5rem;
-        }
+        .option { font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .btn-sm { padding: 0.2rem 0.5rem; }
     </style>
 </head>
 <body class="container py-4">
+
     <nav class="navbar navbar-expand-lg bg-light sticky-top mb-4 shadow-sm">
         <div class="container-fluid">
-          <a class="navbar-brand fw-bold" href="/">📘 思政通</a>
-          <div class="d-flex">
-            <a href="/add" class="btn btn-success">➕ 添加试题</a>
-          </div>
+            <a class="navbar-brand fw-bold" href="/">📘 思政通</a>
+            <div class="d-flex">
+                <a href="/add" class="btn btn-success">➕ 添加试题</a>
+            </div>
         </div>
-      </nav>
+    </nav>
 
+    {% if questions %}
     <div class="row g-4">
         {% for q in questions %}
         <div class="col-12 border-bottom pb-3">
             <p class="mb-2">
-                <strong>{{ loop.index }}.</strong> {{ q['material'] }}
+                <strong>{{ loop.index + ((page - 1) * 5) }}.</strong>
+                {{ q['material'] }}
                 {% if q['question_type'] == '问答题' %}<br />{% endif %}
                 {{ q['question_text'] }}
             </p>
@@ -56,9 +52,42 @@
                    onclick="return confirm('确定要删除这道题吗？');">🗑️</a>
             </div>
         </div>
-        {% else %}
-        <p class="text-muted">暂无试题。</p>
         {% endfor %}
     </div>
+
+    <!-- 分页导航 -->
+    {% if page is defined and total_pages is defined %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="/?page={{ page - 1 }}">上一页</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">上一页</span>
+            </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">第 {{ page }} / {{ total_pages }} 页</span>
+            </li>
+
+            {% if page < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="/?page={{ page + 1 }}">下一页</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">下一页</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+    {% else %}
+    <p class="text-muted">暂无试题。</p>
+    {% endif %}
+
 </body>
 </html>
