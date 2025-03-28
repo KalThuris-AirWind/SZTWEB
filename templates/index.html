@@ -19,8 +19,11 @@
     <nav class="navbar navbar-expand-lg bg-light sticky-top mb-4 shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="/">📘 思政通</a>
-            <div class="d-flex">
-                <a href="/add" class="btn btn-success">➕ 添加试题</a>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <a href="{{ url_for('question_add') }}" class="btn btn-primary">添加题目</a>
+                    <a href="{{ url_for('exam_add') }}" class="btn btn-success">添加试卷</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -47,7 +50,7 @@
 
             <div class="d-flex gap-2">
                 <a href="/question/{{ q['id'] }}" class="btn btn-sm btn-outline-primary" title="查看">📄</a>
-                <a href="/edit/{{ q['id'] }}" class="btn btn-sm btn-outline-warning" title="编辑">✏️</a>
+                <a href="questions/{{q['id']}}/edit" class="btn btn-sm btn-outline-warning" title="编辑">✏️</a>
                 <a href="/delete/{{ q['id'] }}" class="btn btn-sm btn-outline-danger" title="删除"
                    onclick="return confirm('确定要删除这道题吗？');">🗑️</a>
             </div>

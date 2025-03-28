@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试卷列表</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>试卷列表</h2>
+        <a href="{{ url_for('exam_add') }}" class="btn btn-success mb-3">+ 创建新试卷</a>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th>描述</th>
+                    <th>分类</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paper in papers %}
+                <tr>
+                    <td>{{ paper[0] }}</td>
+                    <td>{{ paper[1] }}</td>
+                    <td>{{ paper[2] }}</td>
+                    <td>{{ paper[3] }}</td>
+                    <td>{{ paper[4] }}</td>
+                    <td>
+                        <a href="{{ url_for('exam_edit', id=paper[0]) }}" class="btn btn-warning">编辑</a>
+                        <a href="{{ url_for('exam_delete', id=paper[0]) }}" class="btn btn-danger">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

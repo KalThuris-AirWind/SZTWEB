@@ -1,0 +1,46 @@
+<form method="POST" class="mt-4">
+    <div class="form-group">
+        <label>题目类型</label>
+        <input type="text" class="form-control" name="question_type" value="{{ question['question_type'] }}">
+    </div>
+
+    <div class="form-group">
+        <label>材料</label>
+        <textarea class="form-control" name="material">{{ question['material'] }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>题干</label>
+        <textarea class="form-control" name="question_text" required>{{ question['question_text'] }}</textarea>
+    </div>
+
+    <div class="form-group"><label>A</label><input type="text" class="form-control" name="option_a" value="{{ question['option_a'] }}"></div>
+    <div class="form-group"><label>B</label><input type="text" class="form-control" name="option_b" value="{{ question['option_b'] }}"></div>
+    <div class="form-group"><label>C</label><input type="text" class="form-control" name="option_c" value="{{ question['option_c'] }}"></div>
+    <div class="form-group"><label>D</label><input type="text" class="form-control" name="option_d" value="{{ question['option_d'] }}"></div>
+
+    <div class="form-group">
+        <label>正确答案</label>
+        <input type="text" class="form-control" name="correct_answer" value="{{ question['correct_answer'] }}">
+    </div>
+
+    <div class="form-group">
+        <label>解析</label>
+        <textarea class="form-control" name="analysis">{{ question['analysis'] }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>所属试卷</label>
+        <select class="form-control" name="exam_paper_id">
+            <option value="">不关联</option>
+            {% for paper in exam_papers %}
+                <option value="{{ paper[0] }}" {% if current_exam_id == paper[0] %}selected{% endif %}>
+                    {{ paper[1] }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">保存修改</button>
+    <a href="/questions" class="btn btn-secondary">取消</a>
+</form>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑试卷</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>编辑试卷</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="title">试卷标题</label>
+                <input type="text" class="form-control" id="title" name="title" required value="{{ exam[1] }}">  <!-- exam[1] 是标题 -->
+            </div>
+
+            <!-- 分类 -->
+            <div class="form-group">
+                <label>试卷分类</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="category" value="课后" id="category1" {% if exam[2] == '课后' %}checked{% endif %} required>
+                    <label class="form-check-label" for="category1">课后</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="category" value="单元" id="category2" {% if exam[2] == '单元' %}checked{% endif %}>
+                    <label class="form-check-label" for="category2">单元</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="category" value="期中" id="category3" {% if exam[2] == '期中' %}checked{% endif %}>
+                    <label class="form-check-label" for="category3">期中</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="category" value="期末" id="category4" {% if exam[2] == '期末' %}checked{% endif %}>
+                    <label class="form-check-label" for="category4">期末</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="category" value="真题" id="category5" {% if exam[2] == '真题' %}checked{% endif %}>
+                    <label class="form-check-label" for="category5">真题</label>
+                </div>
+            </div>
+            
+            <!-- 学年 -->
+            <div class="form-group">
+                <label for="academic_year">学年</label>
+                <select class="form-control" id="academic_year" name="academic_year" required>
+                    {% for year in academic_years %}
+                        <option value="{{ year }}" {% if exam[3] == year %}selected{% endif %}>{{ year }}</option>  <!-- exam[3] 是学年 -->
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- 学期 -->
+            <div class="form-group">
+                <label for="semester">学期</label>
+                <select class="form-control" id="semester" name="semester" required>
+                    <option value="第一学期" {% if exam[4] == '第一学期' %}selected{% endif %}>第一学期</option>  <!-- exam[4] 是学期 -->
+                    <option value="第二学期" {% if exam[4] == '第二学期' %}selected{% endif %}>第二学期</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">保存修改</button>
+            <a href="{{ url_for('list_exam_papers') }}" class="btn btn-secondary">返回</a>
+        </form>
+    </div>
+</body>
+</html>
